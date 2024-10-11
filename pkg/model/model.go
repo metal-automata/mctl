@@ -9,9 +9,8 @@ type (
 )
 
 const (
-	FleetDBAPI     APIKind = "fleetdbapi"
-	ConditionsAPI  APIKind = "conditions"
-	BomsServiceAPI APIKind = "bomservice"
+	FleetDBAPI    APIKind = "fleetdbapi"
+	ConditionsAPI APIKind = "conditions"
 )
 
 // Config struct holds the mctl configuration parameters
