@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/metal-toolbox/mctl/cmd"
+	"github.com/metal-automata/mctl/cmd"
 	"github.com/spf13/cobra"
 	cobradoc "github.com/spf13/cobra/doc"
 )

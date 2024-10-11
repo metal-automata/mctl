@@ -8,13 +8,13 @@ import (
 	"strings"
 
 	"github.com/google/uuid"
-	fleetdbapi "github.com/metal-toolbox/fleetdb/pkg/api/v1"
+	fleetdbapi "github.com/metal-automata/fleetdb/pkg/api/v1"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 
-	mctl "github.com/metal-toolbox/mctl/cmd"
-	"github.com/metal-toolbox/mctl/internal/app"
-	rfleetdb "github.com/metal-toolbox/rivets/fleetdb"
+	mctl "github.com/metal-automata/mctl/cmd"
+	"github.com/metal-automata/mctl/internal/app"
+	rfleetdb "github.com/metal-automata/rivets/fleetdb"
 )
 
 type getFirmwareSetFlags struct {

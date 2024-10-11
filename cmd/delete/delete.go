@@ -1,7 +1,7 @@
 package deleteresource
 
 import (
-	"github.com/metal-toolbox/mctl/cmd"
+	"github.com/metal-automata/mctl/cmd"
 
 	"github.com/spf13/cobra"
 )

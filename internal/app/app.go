@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 
 	"github.com/adrg/xdg"
-	"github.com/metal-toolbox/mctl/pkg/model"
+	"github.com/metal-automata/mctl/pkg/model"
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
 )

@@ -9,16 +9,16 @@ import (
 
 	"github.com/davecgh/go-spew/spew"
 	"github.com/google/uuid"
-	"github.com/metal-toolbox/mctl/internal/app"
+	"github.com/metal-automata/mctl/internal/app"
 	"github.com/pkg/errors"
 	"golang.org/x/net/context"
 
 	bmclibcomm "github.com/bmc-toolbox/common"
-	coapiv1 "github.com/metal-toolbox/conditionorc/pkg/api/v1/conditions/types"
-	fleetdbapi "github.com/metal-toolbox/fleetdb/pkg/api/v1"
-	rctypes "github.com/metal-toolbox/rivets/condition"
-	rfleetdb "github.com/metal-toolbox/rivets/fleetdb"
-	rt "github.com/metal-toolbox/rivets/types"
+	coapiv1 "github.com/metal-automata/conditionorc/pkg/api/v1/conditions/types"
+	fleetdbapi "github.com/metal-automata/fleetdb/pkg/api/v1"
+	rctypes "github.com/metal-automata/rivets/condition"
+	rfleetdb "github.com/metal-automata/rivets/fleetdb"
+	rt "github.com/metal-automata/rivets/types"
 )
 
 var (

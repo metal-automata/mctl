@@ -4,10 +4,10 @@ import (
 	"log"
 	"os"
 
-	fleetdbapi "github.com/metal-toolbox/fleetdb/pkg/api/v1"
-	mctl "github.com/metal-toolbox/mctl/cmd"
-	"github.com/metal-toolbox/mctl/internal/app"
-	rfleetdb "github.com/metal-toolbox/rivets/fleetdb"
+	fleetdbapi "github.com/metal-automata/fleetdb/pkg/api/v1"
+	mctl "github.com/metal-automata/mctl/cmd"
+	"github.com/metal-automata/mctl/internal/app"
+	rfleetdb "github.com/metal-automata/rivets/fleetdb"
 	"github.com/spf13/cobra"
 )
 

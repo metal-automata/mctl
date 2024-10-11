@@ -11,7 +11,7 @@ import (
 	"time"
 
 	"github.com/coreos/go-oidc/v3/oidc"
-	"github.com/metal-toolbox/mctl/pkg/model"
+	"github.com/metal-automata/mctl/pkg/model"
 	cv "github.com/nirasan/go-oauth-pkce-code-verifier"
 	"github.com/skratchdot/open-golang/open"
 	"github.com/zalando/go-keyring"

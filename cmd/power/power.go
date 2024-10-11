@@ -12,13 +12,13 @@ import (
 	"github.com/spf13/cobra"
 	"golang.org/x/exp/slices"
 
-	mctl "github.com/metal-toolbox/mctl/cmd"
+	mctl "github.com/metal-automata/mctl/cmd"
 
-	coclient "github.com/metal-toolbox/conditionorc/pkg/api/v1/conditions/client"
-	coapiv1 "github.com/metal-toolbox/conditionorc/pkg/api/v1/conditions/types"
-	rctypes "github.com/metal-toolbox/rivets/condition"
+	coclient "github.com/metal-automata/conditionorc/pkg/api/v1/conditions/client"
+	coapiv1 "github.com/metal-automata/conditionorc/pkg/api/v1/conditions/types"
+	rctypes "github.com/metal-automata/rivets/condition"
 
-	"github.com/metal-toolbox/mctl/internal/app"
+	"github.com/metal-automata/mctl/internal/app"
 )
 
 var powerCmd = &cobra.Command{

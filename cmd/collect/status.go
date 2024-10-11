@@ -8,10 +8,10 @@ import (
 	"github.com/google/uuid"
 	"github.com/spf13/cobra"
 
-	rctypes "github.com/metal-toolbox/rivets/condition"
+	rctypes "github.com/metal-automata/rivets/condition"
 
-	mctl "github.com/metal-toolbox/mctl/cmd"
-	"github.com/metal-toolbox/mctl/internal/app"
+	mctl "github.com/metal-automata/mctl/cmd"
+	"github.com/metal-automata/mctl/internal/app"
 )
 
 type inventoryStatusParams struct {

@@ -6,9 +6,9 @@ import (
 	"log"
 
 	"github.com/google/uuid"
-	mctl "github.com/metal-toolbox/mctl/cmd"
-	"github.com/metal-toolbox/mctl/internal/app"
-	rctypes "github.com/metal-toolbox/rivets/condition"
+	mctl "github.com/metal-automata/mctl/cmd"
+	"github.com/metal-automata/mctl/internal/app"
+	rctypes "github.com/metal-automata/rivets/condition"
 	"github.com/spf13/cobra"
 )
 

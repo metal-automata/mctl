@@ -1,16 +1,16 @@
 ### mctl
 
-mctl is a CLI utility to interact with the metal-toolbox ecosystem of services.
+mctl is a CLI utility to interact with the metal-automata ecosystem of services.
 
 ### Getting started
 
-1. Install the latest available version using `go install github.com/metal-toolbox/mctl@latest`.  Please note the `mctl` binary will install in the `bin` directory of your `$GOPATH`.
-2. Create a configuration file as `.mctl.yml`, for sample configuration files checkout [samples/mctl.yml](https://github.com/metal-toolbox/mctl/blob/main/samples).
+1. Install the latest available version using `go install github.com/metal-automata/mctl@latest`.  Please note the `mctl` binary will install in the `bin` directory of your `$GOPATH`.
+2. Create a configuration file as `.mctl.yml`, for sample configuration files checkout [samples/mctl.yml](https://github.com/metal-automata/mctl/blob/main/samples).
 3. Export `MCTLCONFIG=~/.mctl.yml`.
 
 ### Actions
 
-For the updated list of all commands available, check out the [CLI docs](https://github.com/metal-toolbox/mctl/tree/main/docs/mctl.md)
+For the updated list of all commands available, check out the [CLI docs](https://github.com/metal-automata/mctl/tree/main/docs/mctl.md)
 
 - Get component information on a server - `mctl get component --server-id <>`
 - List available firmware - `mctl list firmware`

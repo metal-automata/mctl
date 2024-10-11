@@ -11,11 +11,11 @@ builds:
       - linux
       - darwin
     ldflags:
-      - -X "github.com/metal-toolbox/mctl/internal/version.AppVersion={{ .Version }}"
-        -X "github.com/metal-toolbox/mctl/internal/version.GoVersion={{ .Env.GOVERSION }}"
-        -X "github.com/metal-toolbox/mctl/internal/version.GitCommit={{ .Commit }}"
-        -X "github.com/metal-toolbox/mctl/internal/version.GitBranch={{ .Branch }}"
-        -X "github.com/metal-toolbox/mctl/internal/version.BuildDate={{ .Date }}"
+      - -X "github.com/metal-automata/mctl/internal/version.AppVersion={{ .Version }}"
+        -X "github.com/metal-automata/mctl/internal/version.GoVersion={{ .Env.GOVERSION }}"
+        -X "github.com/metal-automata/mctl/internal/version.GitCommit={{ .Commit }}"
+        -X "github.com/metal-automata/mctl/internal/version.GitBranch={{ .Branch }}"
+        -X "github.com/metal-automata/mctl/internal/version.BuildDate={{ .Date }}"
 
 archives:
   - id: go

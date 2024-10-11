@@ -6,9 +6,9 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/metal-toolbox/mctl/internal/app"
+	"github.com/metal-automata/mctl/internal/app"
 
-	mctl "github.com/metal-toolbox/mctl/cmd"
+	mctl "github.com/metal-automata/mctl/cmd"
 )
 
 type serverDeleteParams struct {

@@ -8,11 +8,11 @@ import (
 	"github.com/google/uuid"
 	"github.com/spf13/cobra"
 
-	coapiv1 "github.com/metal-toolbox/conditionorc/pkg/api/v1/conditions/types"
-	rctypes "github.com/metal-toolbox/rivets/condition"
+	coapiv1 "github.com/metal-automata/conditionorc/pkg/api/v1/conditions/types"
+	rctypes "github.com/metal-automata/rivets/condition"
 
-	mctl "github.com/metal-toolbox/mctl/cmd"
-	"github.com/metal-toolbox/mctl/internal/app"
+	mctl "github.com/metal-automata/mctl/cmd"
+	"github.com/metal-automata/mctl/internal/app"
 )
 
 type collectInventoryFlags struct {

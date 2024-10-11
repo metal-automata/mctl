@@ -10,8 +10,8 @@ import (
 	"slices"
 	"syscall"
 
-	"github.com/metal-toolbox/mctl/internal/auth"
-	"github.com/metal-toolbox/mctl/pkg/model"
+	"github.com/metal-automata/mctl/internal/auth"
+	"github.com/metal-automata/mctl/pkg/model"
 	"github.com/spf13/cobra"
 )
 

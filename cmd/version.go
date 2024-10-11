@@ -5,7 +5,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/metal-toolbox/mctl/internal/version"
+	"github.com/metal-automata/mctl/internal/version"
 )
 
 var cmdVersion = &cobra.Command{

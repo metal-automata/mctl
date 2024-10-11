@@ -1,5 +1,6 @@
 /*
-Copyright © 2022 Equinix Metal <EMAIL ADDRESS>
+Copyright © 2022-2024 Equinix Metal <EMAIL ADDRESS>
+Copyright 2024 metal-automata https://github.com/metal-automata
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -16,17 +17,17 @@ limitations under the License.
 package main
 
 import (
-	"github.com/metal-toolbox/mctl/cmd"
-	_ "github.com/metal-toolbox/mctl/cmd/bios"
-	_ "github.com/metal-toolbox/mctl/cmd/collect"
-	_ "github.com/metal-toolbox/mctl/cmd/create"
-	_ "github.com/metal-toolbox/mctl/cmd/delete"
-	_ "github.com/metal-toolbox/mctl/cmd/edit"
-	_ "github.com/metal-toolbox/mctl/cmd/generate"
-	_ "github.com/metal-toolbox/mctl/cmd/get"
-	_ "github.com/metal-toolbox/mctl/cmd/install"
-	_ "github.com/metal-toolbox/mctl/cmd/list"
-	_ "github.com/metal-toolbox/mctl/cmd/power"
+	"github.com/metal-automata/mctl/cmd"
+	_ "github.com/metal-automata/mctl/cmd/bios"
+	_ "github.com/metal-automata/mctl/cmd/collect"
+	_ "github.com/metal-automata/mctl/cmd/create"
+	_ "github.com/metal-automata/mctl/cmd/delete"
+	_ "github.com/metal-automata/mctl/cmd/edit"
+	_ "github.com/metal-automata/mctl/cmd/generate"
+	_ "github.com/metal-automata/mctl/cmd/get"
+	_ "github.com/metal-automata/mctl/cmd/install"
+	_ "github.com/metal-automata/mctl/cmd/list"
+	_ "github.com/metal-automata/mctl/cmd/power"
 )
 
 func main() {

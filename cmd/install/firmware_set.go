@@ -9,12 +9,12 @@ import (
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 
-	"github.com/metal-toolbox/mctl/internal/app"
+	"github.com/metal-automata/mctl/internal/app"
 
-	fleetdbapi "github.com/metal-toolbox/fleetdb/pkg/api/v1"
-	rctypes "github.com/metal-toolbox/rivets/condition"
+	fleetdbapi "github.com/metal-automata/fleetdb/pkg/api/v1"
+	rctypes "github.com/metal-automata/rivets/condition"
 
-	mctl "github.com/metal-toolbox/mctl/cmd"
+	mctl "github.com/metal-automata/mctl/cmd"
 )
 
 type installFirmwareSetFlags struct {

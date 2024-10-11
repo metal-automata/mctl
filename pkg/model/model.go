@@ -26,7 +26,7 @@ type Config struct {
 
 type ConfigOIDC struct {
 	// FleetDBAPI is the Hollow server inventory store,
-	// https://github.com/metal-toolbox/fleetdb
+	// https://github.com/metal-automata/fleetdb
 	Endpoint string `mapstructure:"endpoint"`
 
 	// Disable skips OAuth setup

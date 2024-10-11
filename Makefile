@@ -1,4 +1,4 @@
-LDFLAG_LOCATION := github.com/metal-toolbox/mctl/internal/version
+LDFLAG_LOCATION := github.com/metal-automata/mctl/internal/version
 GIT_COMMIT  := $(shell git rev-parse --short HEAD)
 GIT_BRANCH  := $(shell git symbolic-ref -q --short HEAD)
 GIT_SUMMARY := $(shell git describe --tags --dirty --always)

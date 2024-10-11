@@ -3,8 +3,8 @@ package bios
 import (
 	"log"
 
-	mctl "github.com/metal-toolbox/mctl/cmd"
-	rctypes "github.com/metal-toolbox/rivets/condition"
+	mctl "github.com/metal-automata/mctl/cmd"
+	rctypes "github.com/metal-automata/rivets/condition"
 	"github.com/spf13/cobra"
 )
 

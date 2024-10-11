@@ -5,11 +5,11 @@ import (
 	"encoding/json"
 	"log"
 
-	coapiv1 "github.com/metal-toolbox/conditionorc/pkg/api/v1/conditions/types"
+	coapiv1 "github.com/metal-automata/conditionorc/pkg/api/v1/conditions/types"
 	"github.com/spf13/cobra"
 
-	mctl "github.com/metal-toolbox/mctl/cmd"
-	"github.com/metal-toolbox/mctl/internal/app"
+	mctl "github.com/metal-automata/mctl/cmd"
+	"github.com/metal-automata/mctl/internal/app"
 )
 
 type serverEnrollParams struct {

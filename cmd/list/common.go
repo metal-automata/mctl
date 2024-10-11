@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	fleetdbapi "github.com/metal-toolbox/fleetdb/pkg/api/v1"
+	fleetdbapi "github.com/metal-automata/fleetdb/pkg/api/v1"
 )
 
 func findAttribute(ns string, attributes []fleetdbapi.Attributes) *fleetdbapi.Attributes {
