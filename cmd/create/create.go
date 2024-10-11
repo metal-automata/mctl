@@ -18,6 +18,5 @@ func init() {
 	cmd.RootCmd.AddCommand(create)
 	create.AddCommand(createFirmware)
 	create.AddCommand(createFirmwareSet)
-	create.AddCommand(uploadBomFile)
 	create.AddCommand(serverEnroll)
 }
