@@ -19,7 +19,6 @@ mctl list server [flags]
       --serial string     filter by server serial
       --table             format output in a table
   -v, --vendor string     filter by vendor
-      --with-bmc-errors   include BMC errors
       --with-creds        include credentials
       --with-records      print record count found with pagination info and return
 ```

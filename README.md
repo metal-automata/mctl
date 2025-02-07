@@ -12,6 +12,8 @@ mctl is a CLI utility to interact with the metal-automata ecosystem of services.
 
 For the updated list of all commands available, check out the [CLI docs](https://github.com/metal-automata/mctl/tree/main/docs/mctl.md)
 
+- Create hardware vendor, model records - `mctl create hardware-model --vendor-name ace --model-name s551`
+- Import list of servers (note this requires the hw vendor, model to be created) - `mctl create server --from-file samples/lab-servers.json`
 - Get component information on a server - `mctl get component --server-id <>`
 - List available firmware - `mctl list firmware`
 - List firmware sets - `mctl list firmware-set`

@@ -2,21 +2,25 @@
 
 ## mctl create server
 
-Enroll server and publish conditions
+Create server record with BMC information
 
 ```
-mctl create server -a BMCADDR -u BMCUSER -p BMCPASS --facility FACILITY [flags]
+mctl create server [flags]
 ```
 
 ### Options
 
 ```
-  -a, --bmc-addr string   [required] address of the bmc
-  -p, --bmc-pass string   [required] password of the bmc user
-  -u, --bmc-user string   [required] username of the bmc user
-      --facility string   [required] facility name
-  -h, --help              help for server
-  -s, --server string     ID of the server
+  -a, --bmc-addr string       address of the bmc
+      --bmc-mac-addr string   mac address of the bmc (format: 00:de:ad:be:ef:00)
+  -p, --bmc-pass string       password of the bmc user
+  -u, --bmc-user string       username of the bmc user
+      --facility string       facility name
+  -F, --from-file string      JSON file with server data
+  -h, --help                  help for server
+      --model-name string     Hardware model name
+  -s, --server string         ID of the server
+      --vendor-name string    Hardware vendor name
 ```
 
 ### Options inherited from parent commands

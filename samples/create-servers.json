@@ -1,0 +1,28 @@
+[
+  {
+    "vendor": "supermicro",
+    "model": "x11ssl-f",
+    "facility_code": "sandbox",
+    "bmc": {
+      "hardware_vendor_name": "supermicro",
+      "hardware_model_name": "x11ssl-f",
+      "ipaddress": "192.168.2.102",
+      "username": "ADMIN",
+      "password": "ADMIN",
+      "macaddress": "0c:c4:7b:8c:de:da"
+    }
+  },
+  {
+    "vendor": "supermicro",
+    "model": "x11scz-f",
+    "facility_code": "sandbox",
+    "bmc": {
+      "hardware_vendor_name": "supermicro",
+      "hardware_model_name": "x11scz-f",
+      "ipaddress": "192.168.2.101",
+      "username": "ADMIN",
+      "password": "HUNTER2",
+      "macaddress": "3c:ec:ff:33:ee:22"
+    }
+  }
+]
