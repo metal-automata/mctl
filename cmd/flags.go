@@ -33,6 +33,7 @@ var (
 	BMCAddressFlag                    = &flagDetails{name: "bmc-addr", short: "a"}
 	BMCUsernameFlag                   = &flagDetails{name: "bmc-user", short: "u"}
 	BMCPasswordFlag                   = &flagDetails{name: "bmc-pass", short: "p"}
+	BMCMacAddressFlag                 = &flagDetails{name: "bmc-mac-addr"}
 	FirmwareIDFlag                    = &flagDetails{name: "firmware-id", short: "f"}
 	FirmwareVersionFlag               = &flagDetails{name: "firmware-version", short: "V"}
 	FirmwareSetFlag                   = &flagDetails{name: "set-id"}

@@ -1,16 +1,12 @@
 package list
 
 import (
-	"fmt"
 	"log"
 	"os"
-	"strings"
 
 	fleetdbapi "github.com/metal-automata/fleetdb/pkg/api/v1"
 	mctl "github.com/metal-automata/mctl/cmd"
 	"github.com/metal-automata/mctl/internal/app"
-	rfleetdb "github.com/metal-automata/rivets/fleetdb"
-	rt "github.com/metal-automata/rivets/types"
 	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
 )
@@ -50,9 +46,17 @@ var cmdListServer = &cobra.Command{
 			log.Fatal(err)
 		}
 
-		lsp := &fleetdbapi.ServerListParams{
-			FacilityCode:        flagsListServer.facility,
-			AttributeListParams: attributeParamsFromFlags(flagsListServer),
+		lsp := &fleetdbapi.ServerQueryParams{
+			FilterParams: &fleetdbapi.FilterParams{
+				Target: &fleetdbapi.Server{},
+				Filters: []fleetdbapi.Filter{
+					{
+						Attribute:          "facility_code",
+						ComparisonOperator: fleetdbapi.ComparisonOpEqual,
+						Value:              flagsListServer.facility,
+					},
+				},
+			},
 			PaginationParams: &fleetdbapi.
 				PaginationParams{
 				Limit:   flagsListServer.limit,
@@ -62,7 +66,7 @@ var cmdListServer = &cobra.Command{
 			},
 		}
 
-		servers, res, err := client.List(ctx, lsp)
+		servers, res, err := client.ListServers(ctx, lsp)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -88,34 +92,15 @@ var cmdListServer = &cobra.Command{
 		}
 
 		if len(servers) == 0 {
-			fmt.Println("no servers matched filters")
+			log.Println("no servers matched filters")
 			os.Exit(0)
 		}
 
-		rtServers := make([]*rt.Server, 0, len(servers))
-		for _, s := range servers {
-			s := s
-			rtServers = append(rtServers, rfleetdb.ConvertServer(&s))
-		}
-
-		if flagsListServer.creds {
-			for idx := range rtServers {
-				if err := mctl.ServerBMCCredentials(ctx, client, rtServers[idx]); err != nil {
-					log.Fatal(err)
-				}
-			}
-		}
-
-		if flagsListServer.table {
-			serversTable(rtServers, flagsListServer)
-			os.Exit(0)
-		}
-
-		printJSON(rtServers)
+		printJSON(servers)
 	},
 }
 
-func serversTable(servers []*rt.Server, fl *listServerFlags) {
+func serversTable(servers []*fleetdbapi.Server, fl *listServerFlags) {
 	table := tablewriter.NewWriter(os.Stdout)
 	headers := []string{"UUID", "Name", "Vendor", "Model", "Serial", "BMCAddr"}
 
@@ -126,74 +111,22 @@ func serversTable(servers []*rt.Server, fl *listServerFlags) {
 	table.SetHeader(headers)
 	for _, server := range servers {
 		row := []string{
-			server.ID,
+			server.UUID.String(),
 			server.Name,
 			server.Vendor,
 			server.Model,
 			server.Serial,
-			server.BMCAddress,
+			server.BMC.IPAddress,
 		}
 
 		if fl.creds {
-			row = append(row, []string{server.BMCUser, server.BMCPassword}...)
+			row = append(row, []string{server.BMC.Username, server.BMC.Password}...)
 		}
 
 		table.Append(row)
 	}
 
 	table.Render()
-}
-
-func attributeParamsFromFlags(fl *listServerFlags) []fleetdbapi.AttributeListParams {
-	alp := []fleetdbapi.AttributeListParams{}
-
-	// match by vendor, model attributes
-	if fl.vendor != "" {
-		alp = append(
-			alp,
-			fleetdbapi.AttributeListParams{
-				Namespace: rfleetdb.ServerVendorAttributeNS,
-				Keys:      []string{"vendor"},
-				Operator:  "eq",
-				Value:     strings.ToLower(flagsListServer.vendor),
-			},
-		)
-	}
-
-	if fl.model != "" {
-		alp = append(
-			alp,
-			fleetdbapi.AttributeListParams{
-				Namespace: rfleetdb.ServerVendorAttributeNS,
-				Keys:      []string{"model"},
-				Operator:  "like",
-				Value:     strings.ToLower(flagsListServer.model),
-			},
-		)
-	}
-
-	if fl.serial != "" {
-		alp = append(
-			alp,
-			fleetdbapi.AttributeListParams{
-				Namespace: rfleetdb.ServerVendorAttributeNS,
-				Keys:      []string{"serial"},
-				Operator:  "eq",
-				Value:     strings.ToLower(flagsListServer.serial),
-			},
-		)
-	}
-
-	if fl.bmcerrors {
-		alp = append(
-			alp,
-			fleetdbapi.AttributeListParams{
-				Namespace: rfleetdb.ServerNSBMCErrorsAttribute,
-			},
-		)
-	}
-
-	return alp
 }
 
 func init() {
@@ -205,7 +138,6 @@ func init() {
 	mctl.AddFacilityFlag(cmdListServer, &flagsListServer.facility)
 	mctl.AddPageFlag(cmdListServer, &flagsListServer.page)
 	mctl.AddPageLimitFlag(cmdListServer, &flagsListServer.limit)
-	mctl.AddWithBMCErrorsFlag(cmdListServer, &flagsListServer.bmcerrors)
 	mctl.AddWithCredsFlag(cmdListServer, &flagsListServer.creds)
 	mctl.AddPrintTableFlag(cmdListServer, &flagsListServer.table)
 	mctl.AddServerSerialFlag(cmdListServer, &flagsListServer.serial)

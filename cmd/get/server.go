@@ -2,6 +2,7 @@ package get
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"os"
 	"strings"
@@ -10,10 +11,7 @@ import (
 	"github.com/dustin/go-humanize"
 	"github.com/google/uuid"
 	fleetdbapi "github.com/metal-automata/fleetdb/pkg/api/v1"
-	rfleetdb "github.com/metal-automata/rivets/fleetdb"
-	rt "github.com/metal-automata/rivets/types"
 	"github.com/olekukonko/tablewriter"
-	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 
 	mctl "github.com/metal-automata/mctl/cmd"
@@ -55,7 +53,18 @@ var getServer = &cobra.Command{
 		}
 
 		withComponents := cmdArgs.listComponents || cmdArgs.component != ""
-		server, err := server(ctx, client, id, withComponents, cmdArgs.creds)
+		params := fleetdbapi.ServerQueryParams{
+			IncludeComponents: withComponents,
+			IncludeBMC:        cmdArgs.creds,
+		}
+
+		if withComponents {
+			params.ComponentParams = &fleetdbapi.ServerComponentGetParams{
+				InstalledFirmware: true,
+			}
+		}
+
+		server, _, err := client.GetServer(ctx, id, &params)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -77,7 +86,7 @@ var getServer = &cobra.Command{
 		}
 
 		if cmdArgs.biosconfig {
-			mctl.PrintResults(output, server.BIOSCfg)
+			fmt.Println("server bios config listing to be implemented")
 			os.Exit(0)
 		}
 
@@ -85,8 +94,8 @@ var getServer = &cobra.Command{
 	},
 }
 
-func printComponent(components []*rt.Component, slug string) {
-	got := []*rt.Component{}
+func printComponent(components []*fleetdbapi.ServerComponent, slug string) {
+	got := []*fleetdbapi.ServerComponent{}
 
 	for _, c := range components {
 		c := c
@@ -98,25 +107,25 @@ func printComponent(components []*rt.Component, slug string) {
 	mctl.PrintResults(output, got)
 }
 
-func renderServerTable(server *rt.Server, withCreds bool) {
+func renderServerTable(server *fleetdbapi.Server, withCreds bool) {
 	tableServer := tablewriter.NewWriter(os.Stdout)
-	tableServer.Append([]string{"ID", server.ID})
+	tableServer.Append([]string{"ID", server.UUID.String()})
 	tableServer.Append([]string{"Name", server.Name})
 	tableServer.Append([]string{"Model", server.Model})
 	tableServer.Append([]string{"Vendor", server.Vendor})
 	tableServer.Append([]string{"Serial", server.Serial})
-	tableServer.Append([]string{"BMCAddr", server.BMCAddress})
+	tableServer.Append([]string{"BMCAddr", server.BMC.IPAddress})
 	if withCreds {
-		tableServer.Append([]string{"BMCUser", server.BMCUser})
-		tableServer.Append([]string{"BMCPassword", server.BMCPassword})
+		tableServer.Append([]string{"BMCUser", server.BMC.Username})
+		tableServer.Append([]string{"BMCPassword", server.BMC.Password})
 	}
-	tableServer.Append([]string{"Facility", server.Facility})
+	tableServer.Append([]string{"Facility", server.FacilityCode})
 	tableServer.Append([]string{"Reported", humanize.Time(server.UpdatedAt)})
 
 	tableServer.Render()
 }
 
-func renderComponentListTable(components []*rt.Component) {
+func renderComponentListTable(components []*fleetdbapi.ServerComponent) {
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetHeader([]string{"Component", "Vendor", "Model", "Serial", "FW", "Status", "Reported"})
 	for _, c := range components {
@@ -126,8 +135,8 @@ func renderComponentListTable(components []*rt.Component) {
 		installed := "-"
 		status := "-"
 
-		if c.Firmware != nil && c.Firmware.Installed != "" {
-			installed = c.Firmware.Installed
+		if c.InstalledFirmware != nil && c.InstalledFirmware.Version != "" {
+			installed = c.InstalledFirmware.Version
 		}
 
 		if c.Status != nil {
@@ -154,47 +163,6 @@ func renderComponentListTable(components []*rt.Component) {
 	}
 
 	table.Render()
-}
-
-func server(ctx context.Context, client *fleetdbapi.Client, id uuid.UUID, withComponents, withCreds bool) (*rt.Server, error) {
-	server, _, err := client.Get(ctx, id)
-	if err != nil {
-		return nil, err
-	}
-
-	cserver := rfleetdb.ConvertServer(server)
-	if withComponents {
-		var err error
-		cserver.Components, err = components(ctx, client, id)
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	if withCreds {
-		if err := mctl.ServerBMCCredentials(ctx, client, cserver); err != nil {
-			return nil, err
-		}
-	}
-
-	return cserver, nil
-}
-
-func components(ctx context.Context, c *fleetdbapi.Client, id uuid.UUID) ([]*rt.Component, error) {
-	params := &fleetdbapi.PaginationParams{}
-
-	components, resp, err := c.GetComponents(ctx, id, params)
-	if err != nil {
-		return nil, err
-	}
-
-	// XXX: the default result-set size is 100, so more than 100 components will trip
-	// the following error.
-	if resp.TotalPages > 0 {
-		return nil, errors.New("too many components -- add pagination")
-	}
-
-	return rfleetdb.ConvertComponents(components), nil
 }
 
 func init() {

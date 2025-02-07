@@ -13,12 +13,10 @@ import (
 	"github.com/pkg/errors"
 	"golang.org/x/net/context"
 
-	bmclibcomm "github.com/bmc-toolbox/common"
 	coapiv1 "github.com/metal-automata/conditionorc/pkg/api/v1/conditions/types"
 	fleetdbapi "github.com/metal-automata/fleetdb/pkg/api/v1"
 	rctypes "github.com/metal-automata/rivets/condition"
 	rfleetdb "github.com/metal-automata/rivets/fleetdb"
-	rt "github.com/metal-automata/rivets/types"
 )
 
 var (
@@ -67,23 +65,6 @@ func AttributeByNamespace(ns string, attributes []fleetdbapi.Attributes) *fleetd
 	}
 
 	return nil
-}
-
-// VendorModelFromAttrs unpacks the attributes payload to return the vendor, model attributes for a server
-//
-// TODO: move into common library and share with Alloy
-func VendorModelFromAttrs(attrs []fleetdbapi.Attributes) (vendor, model string) {
-	attr := AttributeByNamespace(ServerVendorAttributeNS, attrs)
-	if attr == nil {
-		return "", ""
-	}
-
-	data := map[string]string{}
-	if err := json.Unmarshal(attr.Data, &data); err != nil {
-		return "", ""
-	}
-
-	return bmclibcomm.FormatVendorName(data["vendor"]), bmclibcomm.FormatProductName(data["model"])
 }
 
 // FirmwareSetIDByVendorModel returns the firmware set ID matched by the vendor, model attributes
@@ -208,18 +189,4 @@ func PrintResults(format string, data ...any) {
 
 		fmt.Println(string(b))
 	}
-}
-
-// Query server BMC credentials and update the given server object
-func ServerBMCCredentials(ctx context.Context, client *fleetdbapi.Client, server *rt.Server) error {
-	cred, _, err := client.GetCredential(ctx, uuid.MustParse(server.ID), fleetdbapi.ServerCredentialTypeBMC)
-	if err != nil {
-		// nolint:goerr113 // error is readable when formatted
-		return fmt.Errorf("error in credential lookup for: %s, err: %s", server.ID, err.Error())
-	}
-
-	server.BMCUser = cred.Username
-	server.BMCPassword = cred.Password
-
-	return nil
 }
