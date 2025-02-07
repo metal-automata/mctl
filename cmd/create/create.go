@@ -16,7 +16,9 @@ var create = &cobra.Command{
 
 func init() {
 	cmd.RootCmd.AddCommand(create)
+	create.AddCommand(hwVendorCreate)
+	create.AddCommand(hwModelCreate)
 	create.AddCommand(createFirmware)
 	create.AddCommand(createFirmwareSet)
-	create.AddCommand(serverEnroll)
+	create.AddCommand(serverCreate)
 }
