@@ -24,8 +24,6 @@ func init() {
 	cmdGet.AddCommand(getCondition)
 	cmdGet.AddCommand(getFirmware)
 	cmdGet.AddCommand(getFirmwareSet)
-	cmdGet.AddCommand(getBiosConfig)
-	cmdGet.AddCommand(getBomInfoByMacAddress)
 
 	cmd.AddOutputFlag(cmdGet, &output)
 }
