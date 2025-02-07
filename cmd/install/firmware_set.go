@@ -87,10 +87,9 @@ func installFwSet(ctx context.Context) {
 
 func firmwareSetForInstall(ctx context.Context, client *fleetdbapi.Client, serverID uuid.UUID) (fwSetID uuid.UUID, err error) {
 	errInvalidFwSetID := errors.New("invalid firmware set ID")
-	errNoVendorAttrs := errors.New("unable to determine server vendor, model attributes")
 
 	// validate server exists
-	server, _, err := client.Get(ctx, serverID)
+	server, _, err := client.GetServer(ctx, serverID, nil)
 	if err != nil {
 		if strings.Contains(err.Error(), "resource not found") {
 			return uuid.Nil, errors.Wrap(err, "invalid server ID")
@@ -114,14 +113,8 @@ func firmwareSetForInstall(ctx context.Context, client *fleetdbapi.Client, serve
 		return fwSetID, nil
 	}
 
-	// identify vendor, model attributes
-	vendor, model := mctl.VendorModelFromAttrs(server.Attributes)
-	if vendor == "" || model == "" {
-		return uuid.Nil, errors.Wrap(errNoVendorAttrs, "specify a firmware set ID with --id instead")
-	}
-
 	// identify firmware set by vendor, model attributes
-	fwSetID, err = mctl.FirmwareSetIDByVendorModel(ctx, vendor, model, client)
+	fwSetID, err = mctl.FirmwareSetIDByVendorModel(ctx, server.Vendor, server.Model, client)
 	if err != nil {
 		return uuid.Nil, errors.Wrap(err, "specify a firmware set ID with --id instead")
 	}

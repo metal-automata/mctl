@@ -80,7 +80,7 @@ func firmwareSetForServer(ctx context.Context, client *fleetdbapi.Client, server
 	}
 
 	// validate server exists
-	server, _, err := client.Get(ctx, serverUUID)
+	server, _, err := client.GetServer(ctx, serverUUID, nil)
 	if err != nil {
 		if strings.Contains(err.Error(), "resource not found") {
 			return nil, errors.Wrap(err, "invalid server ID")
@@ -90,13 +90,12 @@ func firmwareSetForServer(ctx context.Context, client *fleetdbapi.Client, server
 	}
 
 	// identify vendor, model attributes
-	vendor, model := mctl.VendorModelFromAttrs(server.Attributes)
-	if vendor == "" || model == "" {
+	if server.Vendor == "" || server.Model == "" {
 		return nil, errNoVendorAttrs
 	}
 
 	// identify firmware set by vendor, model attributes
-	fwSet, err := rfleetdb.FirmwareSetByVendorModel(ctx, vendor, model, client)
+	fwSet, err := rfleetdb.FirmwareSetByVendorModel(ctx, server.Vendor, server.Model, client)
 	if err != nil {
 		return nil, err
 	}
@@ -104,7 +103,7 @@ func firmwareSetForServer(ctx context.Context, client *fleetdbapi.Client, server
 	if fwSet == nil {
 		return nil, errors.Wrap(
 			errNotFound,
-			fmt.Sprintf("vendor: %s, model: %s", vendor, model),
+			fmt.Sprintf("vendor: %s, model: %s", server.Vendor, server.Model),
 		)
 	}
 
