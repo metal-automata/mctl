@@ -61,6 +61,8 @@ var (
 	ServerActionPowerActionStatusFlag = &flagDetails{name: "action-status"}
 	ComponentTypeFlag                 = &flagDetails{name: "component"}
 	BIOSConfigURLFlag                 = &flagDetails{name: "bios-config-url"}
+	HardwareVendorFlag                = &flagDetails{name: "vendor-name"}
+	HardwareModelFlag                 = &flagDetails{name: "model-name"}
 
 	OutputTypeJSON outputType = "json"
 	OutputTypeText outputType = "text"
@@ -149,6 +151,14 @@ func AddServerFlag(cmd *cobra.Command, ptr *string) {
 	cmd.PersistentFlags().StringVarP(ptr, ServerFlag.name, ServerFlag.short, "", "ID of the server")
 }
 
+func AddHardwareVendorFlag(cmd *cobra.Command, ptr *string) {
+	cmd.PersistentFlags().StringVarP(ptr, HardwareVendorFlag.name, HardwareVendorFlag.short, "", "Hardware vendor name")
+}
+
+func AddHardwareModelFlag(cmd *cobra.Command, ptr *string) {
+	cmd.PersistentFlags().StringVarP(ptr, HardwareModelFlag.name, HardwareModelFlag.short, "", "Hardware model name")
+}
+
 func AddSkipFWStatusFlag(cmd *cobra.Command, ptr *bool) {
 	cmd.PersistentFlags().BoolVar(ptr, SkipFWStatusFlag.name, false, "Skip firmware status data collection")
 }
@@ -189,6 +199,10 @@ func AddBMCUsernameFlag(cmd *cobra.Command, ptr *string) {
 
 func AddBMCPasswordFlag(cmd *cobra.Command, ptr *string) {
 	cmd.PersistentFlags().StringVarP(ptr, BMCPasswordFlag.name, BMCPasswordFlag.short, "", "password of the bmc user")
+}
+
+func AddBMCMacAddressFlag(cmd *cobra.Command, ptr *string) {
+	cmd.PersistentFlags().StringVarP(ptr, BMCMacAddressFlag.name, BMCMacAddressFlag.short, "", "mac address of the bmc (format: 00:de:ad:be:ef:00)")
 }
 
 func AddFirmwareIDFlag(cmd *cobra.Command, ptr *string) {
